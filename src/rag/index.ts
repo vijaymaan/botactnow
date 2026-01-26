@@ -1,10 +1,6 @@
 import OpenAI from "openai";
 import { SearchClient, AzureKeyCredential } from "@azure/search-documents";
 
-/* =======================
-   Types (TOP LEVEL ONLY)
-   ======================= */
-
 interface KBChunk {
   content: string;
 }
@@ -75,7 +71,7 @@ async function retrieveChunks(
 
   for await (const result of results.results) {
     const doc = result.document as KBChunk;
-    if (doc && doc.content) {
+    if (doc?.content) {
       chunks.push(doc.content);
     }
   }
@@ -91,28 +87,50 @@ async function askLLM(
   question: string,
   chunks: string[]
 ): Promise<string> {
+  // ✅ GENERIC MODE (NO KB)
+  if (chunks.length === 0) {
+    const response = await chatClient.chat.completions.create({
+      model: process.env.AZURE_OPENAI_CHAT_DEPLOYMENT!,
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful assistant."
+        },
+        {
+          role: "user",
+          content: question
+        }
+      ],
+      temperature: 0.4
+    });
+
+    return response.choices[0].message.content ?? "Sorry, I couldn't answer that.";
+  }
+
+  // ✅ RAG MODE (KB FOUND)
   const context = chunks.join("\n\n---\n\n");
 
   const response = await chatClient.chat.completions.create({
-    model: "gpt-4o-mini",
+    model: process.env.AZURE_OPENAI_CHAT_DEPLOYMENT!,
     messages: [
       {
         role: "system",
         content:
-          "Answer ONLY using the provided context. If the answer is not present, say you do not know."
+          "You are a helpful assistant. Answer using ONLY the provided context."
       },
       {
         role: "user",
         content: `Context:\n${context}\n\nQuestion:\n${question}`
       }
-    ]
+    ],
+    temperature: 0.2
   });
 
   return response.choices[0].message.content ?? "No answer found.";
 }
 
 /* =======================
-   Public API for the Bot
+   Public API
    ======================= */
 
 export async function handleUserQuestion(

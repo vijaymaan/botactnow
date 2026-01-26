@@ -1,4 +1,3 @@
-
 import { TeamsActivityHandler, TurnContext } from "botbuilder";
 import { handleUserQuestion } from "./rag/index";
 

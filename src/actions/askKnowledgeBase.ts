@@ -1,19 +1,19 @@
 import { searchKnowledgeBase } from "../services/search";
 import { askOpenAI } from "../services/openai";
 
-export async function askKnowledgeBase(question: string) {
+export async function askKnowledgeBase(question: string): Promise<string> {
   // 1. Search KB
-  const documents = await searchKnowledgeBase(question);
+  const docs = await searchKnowledgeBase(question);
 
-  // 2. If KB has results → RAG answer
-  if (documents.length > 0) {
+  // 2. Use KB ONLY if there is meaningful content
+  if (docs.length > 0 && docs[0].score !== undefined && docs[0].score > 0.25) {
     return await askOpenAI({
       question,
-      context: documents.map(d => d.content).join("\n")
+      context: docs.map(d => d.content).join("\n")
     });
   }
 
-  // 3. No KB match → generic answer
+  // 3. ALWAYS fall back to generic OpenAI
   return await askOpenAI({
     question,
     context: null
