@@ -2,16 +2,16 @@
   "name": "actnow-teams-bot",
   "version": "1.0.0",
   "private": true,
-"scripts": {
-  "start": "npx ts-node src/server.ts"
-},
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
   "dependencies": {
     "botbuilder": "^4.22.0",
     "dotenv": "^16.4.0",
     "openai": "^4.0.0",
     "@azure/search-documents": "^12.1.0",
-    "restify": "^11.1.0",
-    "ts-node": "^10.9.2"
+    "restify": "^11.1.0"
   },
   "devDependencies": {
     "typescript": "^5.3.0",
