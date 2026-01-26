@@ -41,7 +41,8 @@ server.post("/api/messages", (req: any, res: any, next: any) => {
 /**
  * Start server
  */
-const port = Number(process.env.PORT) || 3978;
-server.listen(port, () => {
+const port = process.env.PORT ? Number(process.env.PORT) : 8080;
+
+server.listen(port, "0.0.0.0", () => {
   console.log(`Bot running on port ${port}`);
 });
