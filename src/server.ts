@@ -1,4 +1,5 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+dotenv.config();
 import restify from "restify";
 import { BotFrameworkAdapter } from "botbuilder";
 import { ActNowBot } from "./app";
