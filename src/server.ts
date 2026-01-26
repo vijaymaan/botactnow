@@ -30,7 +30,7 @@ const bot = new ActNowBot();
 const server = restify.createServer();
 server.use(restify.plugins.bodyParser());
 
-server.post("/api/messages", (req, res, next) => {
+server.post("/api/messages", (req: any, res: any, next: any) => {
   adapter.processActivity(req, res, async (context) => {
     await bot.run(context);
   });
