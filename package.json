@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@azure/search-documents": "^12.2.0",
+    "botbuilder": "^4.23.3",
+    "dotenv": "^17.2.3",
+    "openai": "^6.16.0",
+    "restify": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.10",
+    "@types/restify": "^8.5.12"
+  }
+}
