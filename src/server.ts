@@ -1,18 +1,29 @@
 import "dotenv/config";
 import restify from "restify";
-import { BotFrameworkAdapter } from "botbuilder";
+import {
+  CloudAdapter,
+  ConfigurationBotFrameworkAuthentication
+} from "botbuilder";
 import { ActNowBot } from "./app";
 
 /**
- * Create Bot Framework adapter
+ * Bot Framework Authentication (MODERN)
  */
-const adapter = new BotFrameworkAdapter({
-  appId: process.env.MicrosoftAppId,
-  appPassword: process.env.MicrosoftAppPassword
-});
+const botFrameworkAuthentication =
+  new ConfigurationBotFrameworkAuthentication({
+    MicrosoftAppType: process.env.MicrosoftAppType || "SingleTenant",
+    MicrosoftAppId: process.env.MicrosoftAppId,
+    MicrosoftAppPassword: process.env.MicrosoftAppPassword,
+    MicrosoftAppTenantId: process.env.MicrosoftAppTenantId
+  });
 
 /**
- * Global error handler
+ * Adapter
+ */
+const adapter = new CloudAdapter(botFrameworkAuthentication);
+
+/**
+ * Error handling
  */
 adapter.onTurnError = async (context, error) => {
   console.error("Bot error:", error);
@@ -20,24 +31,24 @@ adapter.onTurnError = async (context, error) => {
 };
 
 /**
- * Create bot instance
+ * Bot
  */
 const bot = new ActNowBot();
 
 /**
- * Create Restify server
+ * Server
  */
 const server = restify.createServer();
 server.use(restify.plugins.bodyParser());
 
 server.post("/api/messages", async (req, res) => {
-  await adapter.processActivity(req, res, async (context) => {
+  await adapter.process(req, res, async (context) => {
     await bot.run(context);
   });
 });
 
 /**
- * Start server (Azure-safe)
+ * Azure-safe port
  */
 const port = parseInt(process.env.PORT ?? "8080", 10);
 
