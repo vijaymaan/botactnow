@@ -1,0 +1,37 @@
+{
+
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.23/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.23",
+  "version": "1.0.0",
+  "id": "ddbfd66e-42cb-44b5-a25b-c34f50c731e5",
+ 
+  "developer": {
+    "name": "Vijay Singh",
+    "websiteUrl": "https://webapp-actnow-efdfg9bxagguhte0.eastus-01.azurewebsites.net",
+    "privacyUrl": "https://webapp-actnow-efdfg9bxagguhte0.eastus-01.azurewebsites.net/privacy",
+    "termsOfUseUrl": "https://webapp-actnow-efdfg9bxagguhte0.eastus-01.azurewebsites.net/terms"
+  },
+  "name": {
+    "short": "ActNow Bot",
+    "full": "ActNow Knowledge Bot"
+  },
+  "description": {
+    "short": "Ask questions from ActNow knowledge base",
+    "full": "A Teams bot that answers questions using internal knowledge and AI."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#4F6BED",
+  "bots": [
+    {
+      "botId": "ddbfd66e-42cb-44b5-a25b-c34f50c731e5",
+      "scopes": ["personal", "team"],
+      "supportsFiles": false,
+      "isNotificationOnly": false
+    }
+  ],
+  "permissions": ["identity", "messageTeamMembers"],
+  "validDomains": ["webapp-actnow-efdfg9bxagguhte0.eastus-01.azurewebsites.net"]
+}
