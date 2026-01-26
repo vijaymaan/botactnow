@@ -10,11 +10,11 @@
     "dotenv": "^16.4.0",
     "openai": "^4.0.0",
     "@azure/search-documents": "^12.1.0",
-    "restify": "^11.1.0"
+    "restify": "^11.1.0",
+    "ts-node": "^10.9.2"
   },
-"devDependencies": {
-  "ts-node": "^10.9.2",
-  "typescript": "^5.3.0",
-  "@types/node": "^22.0.0"
-}
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "@types/node": "^22.0.0"
+  }
 }
