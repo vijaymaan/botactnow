@@ -2,9 +2,9 @@
   "name": "actnow-teams-bot",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "start": "ts-node src/server.ts"
-  },
+"scripts": {
+  "start": "npx ts-node src/server.ts"
+},
   "dependencies": {
     "botbuilder": "^4.22.0",
     "dotenv": "^16.4.0",
