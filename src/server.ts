@@ -1,5 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
+import "dotenv/config";
 import restify from "restify";
 import { BotFrameworkAdapter } from "botbuilder";
 import { ActNowBot } from "./app";
@@ -8,8 +7,8 @@ import { ActNowBot } from "./app";
  * Create Bot Framework adapter
  */
 const adapter = new BotFrameworkAdapter({
-  appId: process.env.MICROSOFT_APP_ID,
-  appPassword: process.env.MICROSOFT_APP_PASSWORD
+  appId: process.env.MicrosoftAppId,
+  appPassword: process.env.MicrosoftAppPassword
 });
 
 /**
@@ -31,18 +30,15 @@ const bot = new ActNowBot();
 const server = restify.createServer();
 server.use(restify.plugins.bodyParser());
 
-server.post("/api/messages", (req: any, res: any, next: any) => {
-  adapter.processActivity(req, res, async (context) => {
+server.post("/api/messages", async (req, res) => {
+  await adapter.processActivity(req, res, async (context) => {
     await bot.run(context);
   });
-  return next();
 });
 
 /**
- * Start server
+ * Start server (Azure-safe)
  */
-
-
 const port = parseInt(process.env.PORT ?? "8080", 10);
 
 server.listen(port, "0.0.0.0", () => {
