@@ -1,13 +1,21 @@
 {
+  "name": "actnow-teams-bot",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "ts-node src/server.ts"
+  },
   "dependencies": {
-    "@azure/search-documents": "^12.2.0",
-    "botbuilder": "^4.23.3",
-    "dotenv": "^17.2.3",
-    "openai": "^6.16.0",
+    "botbuilder": "^4.22.0",
+    "dotenv": "^16.4.0",
+    "openai": "^4.0.0",
+    "@azure/search-documents": "^12.1.0",
     "restify": "^11.1.0"
   },
   "devDependencies": {
-    "@types/node": "^25.0.10",
-    "@types/restify": "^8.5.12"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.0",
+    "@types/node": "^20.0.0",
+    "@types/restify": "^11.1.0"
   }
 }
