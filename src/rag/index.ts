@@ -131,7 +131,7 @@ async function askLLM(
 
 /* =======================
    Public API
-   ======================= */
+   =========================== */
 
 export async function handleUserQuestion(
   question: string
