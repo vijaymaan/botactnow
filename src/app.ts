@@ -61,7 +61,7 @@ export class ActNowBot extends TeamsActivityHandler {
           userText.includes("distribution list")
         ) {
           const dlLink =
-            "https://m365.cloud.microsoft/m365apps/c3ff6344-f6f0-4bfa-8697-b9d47b32ca4b/?from=PortalHome&auth=2&origindomain=microsoft365&client-request-id=c1b41081-020f-426b-a902-f9b1f19f971b";
+            "hhttps://myhub.avepointonlineservices.com/#/services/detail/77/accf435d-7875-4703-9274-3f5a5e46213c";
 
           const card = CardFactory.adaptiveCard(
             createDlCard(dlLink)
