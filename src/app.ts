@@ -4,37 +4,8 @@ import {
   CardFactory
 } from "botbuilder";
 import { handleUserQuestion } from "./rag/index";
-
-/**
- * Helper to build the DL Adaptive Card
- */
-function createDlCard(linkUrl: string) {
-  return {
-    type: "AdaptiveCard",
-    $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
-    version: "1.5",
-    body: [
-      {
-        type: "TextBlock",
-        text: "Distribution List",
-        weight: "Bolder",
-        size: "Medium"
-      },
-      {
-        type: "TextBlock",
-        text: "Click the button below to open the Distribution List page.",
-        wrap: true
-      }
-    ],
-    actions: [
-      {
-        type: "Action.OpenUrl",
-        title: "Open DL Link",
-        url: linkUrl
-      }
-    ]
-  };
-}
+import { createSharePointSiteCard } from "./cards/createSharePointSiteCard";
+import { createDlCard } from "./cards/createDlCard";
 
 export class ActNowBot extends TeamsActivityHandler {
   constructor() {
@@ -61,7 +32,7 @@ export class ActNowBot extends TeamsActivityHandler {
           userText.includes("distribution list")
         ) {
           const dlLink =
-            "hhttps://myhub.avepointonlineservices.com/#/services/detail/77/accf435d-7875-4703-9274-3f5a5e46213c";
+            "https://myhub.avepointonlineservices.com/#/services/detail/77/accf435d-7875-4703-9274-3f5a5e46213c";
 
           const card = CardFactory.adaptiveCard(
             createDlCard(dlLink)
@@ -70,6 +41,26 @@ export class ActNowBot extends TeamsActivityHandler {
           await context.sendActivity({
             attachments: [card]
           });
+
+          await next();
+          return;
+        }
+
+        /**
+         * 🔹 Create SharePoint Site intent
+         */
+        if (
+          userText.includes("create sharepoint site") ||
+          userText.includes("new sharepoint site")
+        ) {
+          const spSiteLink =
+            "https://your-tenant.sharepoint.com/_layouts/15/create.aspx";
+
+          await context.sendActivity(
+            CardFactory.adaptiveCard(
+              createSharePointSiteCard(spSiteLink)
+            )
+          );
 
           await next();
           return;
