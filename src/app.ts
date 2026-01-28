@@ -54,7 +54,7 @@ export class ActNowBot extends TeamsActivityHandler {
           userText.includes("new sharepoint site")
         ) {
           const spSiteLink =
-            "https://your-tenant.sharepoint.com/_layouts/15/create.aspx";
+            "https://myhub.avepointonlineservices.com/#/services/detail/77/accf435d-7875-4703-9274-3f5a5e46213";
 
           await context.sendActivity(
             CardFactory.adaptiveCard(
