@@ -54,7 +54,7 @@ export class ActNowBot extends TeamsActivityHandler {
           userText.includes("new sharepoint site")
         ) {
           const spSiteLink =
-            "https://myhub.avepointonlineservices.com/#/services/detail/77/accf435d-7875-4703-9274-3f5a5e46213";
+            "https://myhub.avepointonlineservices.com/#/services/detail/77/074281a8-16fc-4ff0-a358-1604c334afbd";
 
           await context.sendActivity(
             CardFactory.adaptiveCard(
@@ -71,10 +71,14 @@ export class ActNowBot extends TeamsActivityHandler {
          */
         const answer = await handleUserQuestion(userText);
 
-        await context.sendActivity({
-          type: "message",
-          text: answer
-        });
+if (answer && answer.trim().length > 0) {
+  await context.sendActivity(answer);
+} else {
+  await context.sendActivity(
+    "I couldn’t find an answer for that. Please try rephrasing your question."
+  );
+}
+
       } catch (err) {
         console.error("Bot error:", err);
         await context.sendActivity(
